@@ -54,10 +54,43 @@ class Hand
     self.cards.any? { |el| self.cards.count(el) == 2 }
   end
 
+  def two_pair?
+    self.cards.select { |el| self.cards.count(el) == 2 }.size == 4
+  end
+
+  def trip?
+    self.cards.any? { |el| self.cards.count(el) == 3 }
+  end
+
+  def straight?
+    hand = self.cards.sort
+    (hand.size - 1).times do |i|
+      return false if hand[i].value + 1 != hand[i+1].value
+    end
+    true
+  end
+
+  def flush?
+    self.cards.all? { |el| el.suit == self.cards[0].suit }
+  end
+
+  def full_house?
+    self.pair? && self.trip?
+  end
+
+  def quad?
+    self.cards.any? { |el| self.cards.count(el) == 4 }
+  end
+
+  def straight_flush?
+    self.straight? && self.flush?
+  end
 
 
+  def set_rank
 
 
+  end
 
 end
 
