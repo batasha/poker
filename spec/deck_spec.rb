@@ -19,12 +19,15 @@ describe Deck do
 
 
   subject(:deck) { Deck.new }
-  subject(:cards) { [Card.new(:hearts, :ace), Card.new(:spades, :three),
-                     Card.new(:clubs, :jack), Card.new(:diamonds, :deuce)] }
+
+  cards =  [Card.new(:hearts, :ace), Card.new(:spades, :three),
+            Card.new(:clubs, :jack), Card.new(:diamonds, :deuce)]
 
   describe "#initialize" do
 
     its(:size) {should == 52}
+
+
 
     it "can be initialized with an array of cards" do
       Deck.new(cards).cards.should == cards
@@ -33,19 +36,19 @@ describe Deck do
 
   describe "#shuffle!" do
     it "shuffles the deck" do
-      deck.cards.should_not == deck.dup.shuffle!.cards
+      deck.cards.should_not == Deck.new.shuffle!.cards
     end
   end
 
   describe "#take(n)" do
     it "removes n cards from the top of the deck" do
-      Deck.new(cards).take(3).should == cards[1..3]
+      Deck.new(cards.dup).take(3).should == cards[0..2]
     end
   end
 
   describe "#return_cards(cards)" do
     it "returns cards to the bottom of the deck" do
-      Deck.new(cards).return(cards).cards.should == cards + cards
+      Deck.new(cards).return_cards(cards).cards.should == cards + cards
     end
   end
 

@@ -20,8 +20,13 @@ class Deck
     @cards = cards
   end
 
+  def size
+    @cards.size
+  end
+
   def shuffle!
     @cards.shuffle!
+    self
   end
 
   def take(n)
@@ -30,5 +35,6 @@ class Deck
 
   def return_cards(cards)
     @cards += cards
+    self
   end
 end
