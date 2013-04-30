@@ -2,9 +2,8 @@ require_relative "deck"
 
 class Hand
 
-  HAND_RANKINGS = { :high_card => 0, :pair => 1, :two_pair => 2,
-                    :trip => 3, :straight => 4, :flush => 5,
-                    :full_house => 6, :quad => 7, :str_flush => 8 }
+  HAND_RANKINGS = [:high_card, :pair, :two_pair, :trip, :straight, :flush,
+                   :full_house, :quad, :str_flush]
 
   def self.draw_hand(deck)
     Hand.new(deck)
@@ -85,31 +84,22 @@ class Hand
     self.cards.any? { |el| self.cards.count(el) == 4 }
   end
 
-  def straight_flush?
+  def str_flush?
     self.straight? && self.flush?
+  end
+
+  def high_card?
   end
 
 
   def set_rank
-    if self.straight_flush?
-      @rank = HAND_RANKINGS[:str_flush]
-    elsif self.quad?
-      @rank = HAND_RANKINGS[:quad]
-    elsif self.full_house?
-      @rank = HAND_RANKINGS[:full_house]
-    elsif self.flush?
-      @rank = HAND_RANKINGS[:flush]
-    elsif self.straight?
-      @rank = HAND_RANKINGS[:straight]
-    elsif self.trip?
-      @rank = HAND_RANKINGS[:trip]
-    elsif self.two_pair?
-      @rank = HAND_RANKINGS[:two_pair]
-    elsif self.pair?
-      @rank = HAND_RANKINGS[:pair]
-    else
-      @rank = HAND_RANKINGS[:high_card]
+
+    HAND_RANKINGS.each_with_index do |rank, i|
+      rank = (rank.to_s + "?").to_sym
+     @rank = i if self.send(rank)
     end
+
+    @rank ||= 0
   end
 
 end
