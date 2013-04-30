@@ -20,8 +20,8 @@ describe Deck do
 
   subject(:deck) { Deck.new }
 
-  cards =  [Card.new(:hearts, :ace), Card.new(:spades, :three),
-            Card.new(:clubs, :jack), Card.new(:diamonds, :deuce)]
+  cards =  [Card.new(:hearts, 14), Card.new(:spades, 3),
+            Card.new(:clubs, 11), Card.new(:diamonds, 2)]
 
   describe "#initialize" do
 

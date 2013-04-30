@@ -13,27 +13,22 @@ describe Card do
 
   describe "::values" do
     it "returns an array of all card values" do
-      Card.values.should == [:deuce, :three, :four, :five, :six, :seven,
-                             :eight, :nine, :ten, :jack, :queen, :king,
-                             :ace]
+      Card.values.should == (2..14).to_a
     end
   end
 
 
-  subject(:card) {Card.new(:clubs, :seven)}
+  subject(:card) {Card.new(:clubs, 7)}
 
   its(:suit) { should == :clubs }
-  its(:value) { should == :seven }
+  its(:value) { should == 7 }
 
   describe "#==" do
-    it "returns true if cards' value and suit match" do
-      (card == Card.new(:clubs, :seven)).should be_true
-    end
-    it "returns false if suits don't match" do
-      (card == Card.new(:hearts, :seven)).should be_false
+    it "returns true if cards' values match" do
+      (card == Card.new(:clubs, 7)).should be_true
     end
     it "returns false if values don't match" do
-      (card == Card.new(:clubs, :ten)).should be_false
+      (card == Card.new(:clubs, 10)).should be_false
     end
   end
 

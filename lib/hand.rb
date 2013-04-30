@@ -2,8 +2,9 @@ require_relative "deck"
 
 class Hand
 
-  HAND_RANKINGS = [ :high_card, :pair, :two_pair, :trip, :straight, :flush,
-                    :full_house, :quad, :str_flush ]
+  HAND_RANKINGS = { :high_card => 0, :pair => 1, :two_pair => 2,
+                    :trip => 3, :straight => 4, :flush => 5,
+                    :full_house => 6, :quad => 7, :str_flush => 8 }
 
   def self.draw_hand(deck)
     Hand.new(deck)
@@ -24,7 +25,7 @@ class Hand
   end
 
   attr_accessor :cards
-  attr_reader :reader
+  attr_reader :reader, :rank
 
   def initialize(deck)
     @cards = deck.take(5)
@@ -34,6 +35,8 @@ class Hand
   def size
     @cards.size
   end
+
+
 
   def discard(cards, deck)
     @cards -= cards
@@ -88,8 +91,25 @@ class Hand
 
 
   def set_rank
-
-
+    if self.straight_flush?
+      @rank = HAND_RANKINGS[:str_flush]
+    elsif self.quad?
+      @rank = HAND_RANKINGS[:quad]
+    elsif self.full_house?
+      @rank = HAND_RANKINGS[:full_house]
+    elsif self.flush?
+      @rank = HAND_RANKINGS[:flush]
+    elsif self.straight?
+      @rank = HAND_RANKINGS[:straight]
+    elsif self.trip?
+      @rank = HAND_RANKINGS[:trip]
+    elsif self.two_pair?
+      @rank = HAND_RANKINGS[:two_pair]
+    elsif self.pair?
+      @rank = HAND_RANKINGS[:pair]
+    else
+      @rank = HAND_RANKINGS[:high_card]
+    end
   end
 
 end
