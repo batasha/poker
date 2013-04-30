@@ -4,8 +4,16 @@ require "deck"
 describe Deck do
 
   describe "::all_cards" do
-    it "returns an array of 52 Card objects"
-    it "all cards are unique"
+    subject(:cards) {Deck.all_cards}
+
+    its(:size) { should == 52 }
+    it "is composed of card objects" do
+      cards.all? {|card| card.class.should == Card}
+    end
+
+    it "all cards are unique" do
+      cards.uniq.size.should == 52
+    end
   end
 
   subject(:deck) { Deck.new }
