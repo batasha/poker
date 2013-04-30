@@ -10,19 +10,19 @@ class Card
   }
 
   VALUE_STRINGS = {
-    :deuce => "2",
-    :three => "3",
-    :four  => "4",
-    :five  => "5",
-    :six   => "6",
-    :seven => "7",
-    :eight => "8",
-    :nine  => "9",
-    :ten   => "10",
-    :jack  => "J",
-    :queen => "Q",
-    :king  => "K",
-    :ace   => "A"
+    2  => "2",
+    3  => "3",
+    4  => "4",
+    5  => "5",
+    6  => "6",
+    7  => "7",
+    8  => "8",
+    9  => "9",
+    10 => "10",
+    11 => "J",
+    12 => "Q",
+    13 => "K",
+    14 => "A"
   }
 
   def self.suits
@@ -40,7 +40,11 @@ class Card
   end
 
   def ==(other_card)
-    self.suit == other_card.suit && self.value == other_card.value
+    self.value == other_card.value
+  end
+
+  def <=>(other_card)
+    self.value <=> other_card.value
   end
 
   def to_s
