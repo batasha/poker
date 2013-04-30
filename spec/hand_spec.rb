@@ -112,15 +112,15 @@ describe Hand do
     let(:bad_hand) { Hand.new( Deck.new( [Card.new(:clubs, 9), Card.new(:clubs, 11),
          Card.new(:spades, 2), Card.new(:hearts, 4), Card.new(:diamonds, 7)] ) ) }
 
-    describe "#straight_flush?" do
+    describe "#str_flush?" do
       deck1 = [Card.new(:diamonds, 9), Card.new(:diamonds, 11), Card.new(:diamonds, 10),
                Card.new(:diamonds, 8), Card.new(:diamonds, 7)]
 
       it "identifies a straight flush" do
-        Hand.new(deck1).should be_straight_flush
+        Hand.new(deck1).should be_str_flush
       end
       it "returns false if not found" do
-        bad_hand.should_not be_straight_flush
+        bad_hand.should_not be_str_flush
       end
     end
 
@@ -215,23 +215,26 @@ describe Hand do
     it "sets straight flush rank" do
       deck1 = [Card.new(:diamonds, 9), Card.new(:diamonds, 11), Card.new(:diamonds, 10),
                Card.new(:diamonds, 8), Card.new(:diamonds, 7)]
-
-      Hand.new(deck1).set_rank.should == Hand::HAND_RANKINGS[:str_flush]
+      hand = Hand.new(deck1)
+      hand.set_rank
+      hand.rank.should == Hand::HAND_RANKINGS.index(:str_flush)
     end
 
     it "sets pair rank" do
       deck1 = [Card.new(:clubs, 9), Card.new(:clubs, 11), Card.new(:spades, 2),
                Card.new(:hearts, 9), Card.new(:diamonds, 7)]
-
-      Hand.new(deck1).set_rank.should == Hand::HAND_RANKINGS[:pair]
+      hand = Hand.new(deck1)
+      hand.set_rank
+      hand.rank.should == Hand::HAND_RANKINGS.index(:pair)
     end
 
 
     it "sets high card rank" do
       deck1 = [Card.new(:clubs, 3), Card.new(:clubs, 11), Card.new(:spades, 2),
                Card.new(:hearts, 9), Card.new(:diamonds, 7)]
-
-      Hand.new(deck1).set_rank.should == Hand::HAND_RANKINGS[:high_card]
+      hand = Hand.new(deck1)
+      hand.set_rank
+      hand.rank.should == Hand::HAND_RANKINGS.index(:high_card)
     end
 
   end
