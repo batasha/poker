@@ -14,6 +14,21 @@ class Deck
     cards
   end
 
+  attr_reader :cards
 
+  def initialize(cards = Deck.all_cards)
+    @cards = cards
+  end
 
+  def shuffle!
+    @cards.shuffle!
+  end
+
+  def take(n)
+    @cards.shift(n)
+  end
+
+  def return_cards(cards)
+    @cards += cards
+  end
 end
