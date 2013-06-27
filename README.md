@@ -1,7 +1,6 @@
 Poker?
 ======
-*(But I hardly know her!)*
-------------------------
+#####*(But I hardly know her!)*
 
 A simple game of 5-card draw written with TDD using RSpec. Incomplete as of 4/30/13.
 
